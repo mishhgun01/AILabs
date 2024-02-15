@@ -32,24 +32,3 @@ func StartState() *state {
 		matrix: startStateMatrix,
 	}
 }
-
-// stateChecked - Проверка состояние на то, что оно было пройдено.
-func (state *state) stateChecked() bool {
-	for _, item := range checkedStates {
-		if item.matrix == state.matrix {
-			return true
-		}
-	}
-
-	return false
-}
-
-// isResult - Является ли состояние конечным.
-func (state *state) isResult() bool {
-	return state.matrix == endStateMatrix
-}
-
-// generateSubstates - генерация последовательностей.
-func (state *state) generateSubstates() []state {
-	return nil
-}

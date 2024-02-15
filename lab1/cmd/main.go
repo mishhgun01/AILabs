@@ -7,6 +7,6 @@ import (
 
 func main() {
 	startState := pkg.StartState()
-	chain := pkg.Resolve(startState, pkg.Alghorithm)
+	chain := pkg.Resolve(startState)
 	fmt.Println(chain)
 }
