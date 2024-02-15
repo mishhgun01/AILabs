@@ -1,5 +1,7 @@
 package pkg
 
+import "reflect"
+
 // state - модель состояния.
 type state struct {
 	matrix [3][3]int
@@ -31,4 +33,16 @@ func StartState() *state {
 	return &state{
 		matrix: startStateMatrix,
 	}
+}
+
+func CompareState(st1, st2 state) bool {
+	if !reflect.DeepEqual(st1.matrix, st2.matrix) {
+		return false
+	}
+	return true
+}
+
+// получение всех возможных состояний из текущего
+func (st *state) GetNewState() []state {
+	return nil
 }
