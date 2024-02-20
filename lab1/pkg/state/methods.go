@@ -3,21 +3,15 @@ package state
 import (
 	"AILabs/lab1/pkg/consts"
 	"fmt"
+	"os"
 )
 
-// StartState - инициализация начального состояния.
-func StartState() *State {
-	return &State{
-		matrix: startStateMatrix,
-	}
-}
-
 // Print - красивый вывод состояния.
-func (st *State) Print() {
+func (st *State) Print(f *os.File) {
 	for i := range st.matrix {
-		fmt.Printf("| %d %d %d |\n", st.matrix[i][0], st.matrix[i][1], st.matrix[i][2])
+		fmt.Fprintf(f, "| %d %d %d |\n", st.matrix[i][0], st.matrix[i][1], st.matrix[i][2])
 	}
-	fmt.Println("--------------------------------")
+	fmt.Fprint(f, "---------------\n")
 }
 
 // IsResult - Является ли состояние конечным.

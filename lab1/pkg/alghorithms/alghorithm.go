@@ -25,8 +25,8 @@ func DFS(startState *state.State) []state.State {
 		// Генерация последовательностей.
 		substates := state.GenerateSubstates()
 		if len(substates) == 0 {
-			// Если состояний больше нет - значит мы дошли до листа и не нашли ответ. Чистим цепочку.
-			chain = chain[:]
+			// Если состояний больше нет - значит мы дошли до листа и не нашли ответ. Убираем лист из цепи.
+			chain = chain[:len(chain)-1]
 			continue
 		}
 

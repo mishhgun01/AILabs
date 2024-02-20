@@ -25,3 +25,10 @@ var (
 
 	checkedStates []State
 )
+
+// StartState - инициализация начального состояния.
+func StartState() *State {
+	return &State{
+		matrix: startStateMatrix,
+	}
+}
