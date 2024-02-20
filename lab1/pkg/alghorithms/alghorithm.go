@@ -1,11 +1,13 @@
-package pkg
+package alghorithms
 
-type position string
+import (
+	"AILabs/lab1/pkg/state"
+)
 
 // DFS - Алгоритм поиска в глубину с генерацией состояний.
-func DFS(startState *state) []state {
-	var stack []state
-	var chain []state
+func DFS(startState *state.State) []state.State {
+	var stack []state.State
+	var chain []state.State
 	stack = append(stack, *startState)
 
 	for len(stack) > 0 {
@@ -16,12 +18,12 @@ func DFS(startState *state) []state {
 		chain = append(chain, state)
 
 		// Если текущее состояние является конечным, возвращаем всю цепочку.
-		if state.isResult() {
+		if state.IsResult() {
 			return chain
 		}
 
 		// Генерация последовательностей.
-		substates := state.generateSubstates()
+		substates := state.GenerateSubstates()
 		if len(substates) == 0 {
 			// Если состояний больше нет - значит мы дошли до листа и не нашли ответ. Чистим цепочку.
 			chain = chain[:]

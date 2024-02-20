@@ -1,13 +1,14 @@
 package main
 
 import (
-	"AILabs/lab1/pkg"
+	"AILabs/lab1/pkg/alghorithms"
+	"AILabs/lab1/pkg/solver"
+	"AILabs/lab1/pkg/state"
 )
 
 func main() {
-	startState := pkg.StartState()
-	startState.Print()
-	output := pkg.Resolve(startState, pkg.DFS)
+	startState := state.StartState()
+	output := solver.Resolve(startState, alghorithms.DFS)
 	for _, state := range output {
 		state.Print()
 	}
