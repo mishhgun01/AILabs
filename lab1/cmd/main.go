@@ -24,7 +24,7 @@ func main() {
 	startState := state.StartState()
 
 	t1 := time.Now().UnixNano()
-	output := solver.Resolve(startState, alghorithms.DFS)
+	output := solver.Resolve(startState, alghorithms.IDDFS)
 
 	t2 := time.Now().UnixNano()
 	for _, state := range output {
