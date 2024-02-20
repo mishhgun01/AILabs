@@ -1,5 +1,7 @@
 package pkg
 
+import "fmt"
+
 // state - модель состояния.
 type state struct {
 	matrix [3][3]int
@@ -31,4 +33,28 @@ func StartState() *state {
 	return &state{
 		matrix: startStateMatrix,
 	}
+}
+
+// Print - красивый вывод состояния.
+func (state *state) Print() {
+	for i := range state.matrix {
+		fmt.Printf("| %d %d %d |\n", state.matrix[i][0], state.matrix[i][1], state.matrix[i][2])
+	}
+	fmt.Println("--------------------------------")
+}
+
+// stateChecked - Проверка состояние на то, что оно было пройдено.
+func (state *state) stateChecked() bool {
+	for _, item := range checkedStates {
+		if item.matrix == state.matrix {
+			return true
+		}
+	}
+
+	return false
+}
+
+// isResult - Является ли состояние конечным.
+func (state *state) isResult() bool {
+	return state.matrix == endStateMatrix
 }

@@ -2,37 +2,34 @@ package pkg
 
 type position string
 
-const (
-	LEFT   = "Left"
-	RIGHT  = "Right"
-	TOP    = "Top"
-	BOTTOM = "Bottom"
-)
+// DFS - Алгоритм поиска в глубину с генерацией состояний.
+func DFS(startState *state) []state {
+	var stack []state
+	var chain []state
+	stack = append(stack, *startState)
 
-// stateChecked - Проверка состояние на то, что оно было пройдено.
-func (state *state) stateChecked() bool {
-	for _, item := range checkedStates {
-		if item.matrix == state.matrix {
-			return true
+	for len(stack) > 0 {
+		// Получаем текущее состояние из стека.
+		state := stack[len(stack)-1]
+		// Убираем текущее состояние из стека.
+		stack = stack[:len(stack)-1]
+		chain = append(chain, state)
+
+		// Если текущее состояние является конечным, возвращаем всю цепочку.
+		if state.isResult() {
+			return chain
 		}
-	}
 
-	return false
-}
+		// Генерация последовательностей.
+		substates := state.generateSubstates()
+		if len(substates) == 0 {
+			// Если состояний больше нет - значит мы дошли до листа и не нашли ответ. Чистим цепочку.
+			chain = chain[:]
+			continue
+		}
 
-// isResult - Является ли состояние конечным.
-func (state *state) isResult() bool {
-	return state.matrix == endStateMatrix
-}
+		stack = append(stack, substates...)
 
-// generateSubstates - генерация последовательностей.
-// TODO
-func (state *state) generateSubstates(swapPosition position) []state {
-	switch swapPosition {
-	case LEFT:
-	case RIGHT:
-	case TOP:
-	case BOTTOM:
 	}
 	return nil
 }
