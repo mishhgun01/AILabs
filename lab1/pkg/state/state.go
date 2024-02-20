@@ -23,7 +23,7 @@ var (
 		{6, 7, 8},
 	}
 
-	checkedStates []State
+	CheckedStates []State
 )
 
 // StartState - инициализация начального состояния.

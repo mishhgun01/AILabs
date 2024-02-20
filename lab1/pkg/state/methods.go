@@ -23,7 +23,7 @@ func (st *State) IsResult() bool {
 func (st *State) GenerateSubstates() []State {
 	var generatedStates []State
 	// Сразу добавляем текущее состояние в провереннные.
-	checkedStates = append(checkedStates, *st)
+	CheckedStates = append(CheckedStates, *st)
 	for i := range st.matrix {
 		for j := range st.matrix[i] {
 			if st.matrix[i][j] != EMPTY_ELEMENT {
@@ -67,7 +67,7 @@ func (st *State) GenerateSubstates() []State {
 
 // stateChecked - Проверка состояние на то, что оно было пройдено.
 func (st *State) StateChecked() bool {
-	for _, item := range checkedStates {
+	for _, item := range CheckedStates {
 		if item.matrix == st.matrix {
 			return true
 		}
