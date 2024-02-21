@@ -2,6 +2,7 @@ package main
 
 import (
 	"AILabs/lab1/pkg/alghorithms"
+	"AILabs/lab1/pkg/node"
 	"AILabs/lab1/pkg/solver"
 	"AILabs/lab1/pkg/state"
 	"fmt"
@@ -10,7 +11,7 @@ import (
 )
 
 const (
-	fname = "output_dfs.txt"
+	fname = "C:\\Users\\mihak\\GolandProjects\\AILabs\\lab1\\cmd\\output_dfs.txt"
 )
 
 func main() {
@@ -21,14 +22,13 @@ func main() {
 	}
 	defer file.Close()
 
-	startState := state.StartState()
-
+	startNode := node.NewNode(1, *state.StartState(), node.PathCostDFS, nil)
 	t1 := time.Now().UnixNano()
-	output := solver.Resolve(startState, alghorithms.IDDFS)
+	output := solver.Resolve(startNode, alghorithms.IDDFS)
 
 	t2 := time.Now().UnixNano()
-	for _, state := range output {
-		state.Print(file)
+	for _, vertex := range output {
+		vertex.State.Print(file)
 	}
 
 	fmt.Fprintf(file, "Прошло %d секунд\n", t2-t1/1000000000)
