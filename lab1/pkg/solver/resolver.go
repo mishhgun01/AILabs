@@ -1,13 +1,13 @@
 package solver
 
 import (
-	"AILabs/lab1/pkg/state"
+	"AILabs/lab1/pkg/node"
 )
 
 // alghorithm - шаблонная функция алгоритма, решающего задачу.
-type alghorithm func(*state.State) []state.State
+type alghorithm func(*node.Node) []node.Node
 
 // Resolve - функция решающая задачу.
-func Resolve(st *state.State, f alghorithm) []state.State {
+func Resolve(st *node.Node, f alghorithm) []node.Node {
 	return f(st)
 }
