@@ -41,20 +41,20 @@ func search(maxDepth int, startNode *node.Node) ([]node.Node, bool) {
 	stack = append(stack, *startNode)
 	for len(stack) > 0 {
 		// Получаем текущее состояние из стека.
-		vertex := stack[len(stack)-1]
+		currentNode := stack[len(stack)-1]
 		// Убираем текущее состояние из стека.
 		stack = stack[:len(stack)-1]
 
 		// Если текущее состояние является конечным, возвращаем всю цепочку.
-		if vertex.State.IsResult() {
-			fmt.Println(vertex.Depth)
-			return vertex.GetChain(), true
+		if currentNode.State.IsResult() {
+			fmt.Println(currentNode.Depth)
+			return currentNode.ChainSlice(), true
 		}
 
 		// Генерация последовательностей.
 
-		if vertex.Depth < maxDepth {
-			subnodes := vertex.GenerateSubNodes(node.PathCostDFS)
+		if currentNode.Depth < maxDepth {
+			subnodes := currentNode.GenerateSubnodes()
 
 			stack = append(stack, subnodes...)
 			// Если состояний больше нет - значит мы дошли до листа и не нашли ответ. Убираем лист из цепи.
