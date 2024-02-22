@@ -27,8 +27,8 @@ var (
 )
 
 // StartState - инициализация начального состояния.
-func StartState() *State {
-	return &State{
+func StartState() State {
+	return State{
 		matrix: startStateMatrix,
 	}
 }

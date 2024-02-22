@@ -11,25 +11,25 @@ import (
 )
 
 const (
-	fname = "C:\\Users\\mihak\\GolandProjects\\AILabs\\lab1\\cmd\\output_dfs.txt"
+	fname = "output_dfs.txt"
 )
 
 func main() {
 
-	file, err := os.OpenFile(fname, os.O_RDWR, 0666)
+	file, err := os.OpenFile(fname, os.O_RDWR|os.O_CREATE, 0666)
 	if err != nil {
 		panic(err)
 	}
 	defer file.Close()
 
-	startNode := node.NewNode(1, *state.StartState(), node.PathCostDFS, nil)
-	t1 := time.Now().UnixNano()
+	startNode := node.NewNode(1, state.StartState(), node.DefaultDepthGenerator, nil)
+	start := time.Now()
 	output := solver.Resolve(startNode, alghorithms.IDDFS)
 
-	t2 := time.Now().UnixNano()
+	duration := time.Since(start)
 	for _, vertex := range output {
 		vertex.State.Print(file)
 	}
 
-	fmt.Fprintf(file, "Прошло %d секунд\n", t2-t1/1000000000)
+	fmt.Fprintf(file, "Прошло %s\n", duration)
 }
