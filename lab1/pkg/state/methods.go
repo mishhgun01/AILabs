@@ -3,6 +3,7 @@ package state
 import (
 	"AILabs/lab1/pkg/consts"
 	"fmt"
+	"math"
 	"os"
 )
 
@@ -74,4 +75,37 @@ func (st *State) StateChecked() bool {
 	}
 
 	return false
+}
+
+func (st *State) GetStepsValue() int {
+	var steps int
+	for i := range st.matrix {
+		for j := range st.matrix[i] {
+			if st.matrix[i][j] != endStateMatrix[i][j] {
+				steps++
+			}
+		}
+	}
+	return steps
+}
+
+func (st *State) GetManhattanDistance() int {
+	var distance int
+	endStateIndexes := make(map[int][2]int)
+	for i := range endStateMatrix {
+		for j := range endStateMatrix[i] {
+			endStateIndexes[endStateMatrix[i][j]] = [2]int{i, j}
+		}
+	}
+
+	for i := range st.matrix {
+		for j := range st.matrix[i] {
+			xEnd, yEnd := endStateIndexes[st.matrix[i][j]][0], endStateIndexes[st.matrix[i][j]][1]
+			xStart, yStart := i, j
+			distance += int(math.Abs(float64(xStart-xEnd)) + math.Abs(float64(yStart-yEnd)))
+		}
+	}
+
+	return distance
+
 }
