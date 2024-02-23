@@ -8,4 +8,5 @@ const (
 	UP       = "Up"
 	DOWN     = "Down"
 	INFINITY = math.MaxInt64
+	FILENAME = "output_dfs.txt"
 )

@@ -1,27 +1,26 @@
 package main
 
 import (
-	"AILabs/lab1/pkg/alghorithms"
 	"AILabs/lab1/pkg/consts"
 	"AILabs/lab1/pkg/node"
 	"AILabs/lab1/pkg/solver"
 	"AILabs/lab1/pkg/state"
+	"AILabs/lab2/alghorithms"
 	"fmt"
 	"os"
 	"time"
 )
 
 func main() {
-
 	file, err := os.OpenFile(consts.FILENAME, os.O_RDWR|os.O_CREATE, 0666)
 	if err != nil {
 		panic(err)
 	}
 	defer file.Close()
 
-	startNode := node.NewNode(1, state.StartState(), node.DefaultDepthGenerator, nil)
+	startNode := node.NewNode(1, state.StartState(), node.MinimumStepsDepthGenerator, nil)
 	start := time.Now()
-	output := solver.Resolve(startNode, alghorithms.IDDFS)
+	output := solver.Resolve(startNode, alghorithms.AStar)
 
 	duration := time.Since(start)
 	for _, vertex := range output {
