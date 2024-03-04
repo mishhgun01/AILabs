@@ -55,7 +55,7 @@ func (st *State) GenerateSubstates() []State {
 			// Проверяем состояния на то, что они были пройдены ранее.
 			var newStates []State
 			for _, state := range generatedStates {
-				if !state.StateChecked() {
+				if !state.checked() {
 					newStates = append(newStates, state)
 				}
 			}
@@ -66,8 +66,8 @@ func (st *State) GenerateSubstates() []State {
 	return nil
 }
 
-// stateChecked - Проверка состояние на то, что оно было пройдено.
-func (st *State) StateChecked() bool {
+// checked - Проверка состояние на то, что оно было пройдено.
+func (st *State) checked() bool {
 	for _, item := range CheckedStates {
 		if item.matrix == st.matrix {
 			return true
