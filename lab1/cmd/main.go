@@ -21,7 +21,9 @@ func main() {
 
 	startNode := node.NewNode(1, state.StartState(), node.DefaultDepthGenerator, nil)
 	start := time.Now()
-	output := solver.Resolve(startNode, alghorithms.IDDFS)
+	output, steps, nodeCount := solver.Resolve(startNode, alghorithms.DFS)
+	fmt.Println("STeps:", steps)
+	fmt.Println("Max nodes:", nodeCount)
 
 	duration := time.Since(start)
 	for _, vertex := range output {

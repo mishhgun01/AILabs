@@ -20,7 +20,10 @@ func main() {
 
 	startNode := node.NewNode(1, state.StartState(), node.MinimumStepsDepthGenerator, nil)
 	start := time.Now()
-	output := solver.Resolve(startNode, alghorithms.AStar)
+	output, steps, nodeCount := solver.Resolve(startNode, alghorithms.AStar)
+
+	fmt.Println("STeps:", steps)
+	fmt.Println("Max nodes:", nodeCount)
 
 	duration := time.Since(start)
 	for _, vertex := range output {

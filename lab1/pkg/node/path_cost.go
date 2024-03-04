@@ -22,3 +22,11 @@ func SortByPathCost(nodes []Node) []Node {
 
 	return nodes
 }
+
+func AStarMinimumStepsDepthGenerator(node *Node) {
+	node.pathCost = node.Depth + node.State.GetStepsValue()
+}
+
+func AStarManhattanDistanceGenerator(node *Node) {
+	node.pathCost = node.Depth + node.State.GetManhattanDistance()
+}
