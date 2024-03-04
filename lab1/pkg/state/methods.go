@@ -66,17 +66,6 @@ func (st *State) GenerateSubstates() []State {
 	return nil
 }
 
-// checked - Проверка состояние на то, что оно было пройдено.
-func (st *State) checked() bool {
-	for _, item := range CheckedStates {
-		if item.matrix == st.matrix {
-			return true
-		}
-	}
-
-	return false
-}
-
 func (st *State) GetStepsValue() int {
 	var steps int
 	for i := range st.matrix {
@@ -108,4 +97,15 @@ func (st *State) GetManhattanDistance() int {
 
 	return distance
 
+}
+
+// checked - Проверка состояние на то, что оно было пройдено.
+func (st *State) checked() bool {
+	for _, item := range CheckedStates {
+		if item.matrix == st.matrix {
+			return true
+		}
+	}
+
+	return false
 }
