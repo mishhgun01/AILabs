@@ -31,4 +31,6 @@ func main() {
 	}
 
 	fmt.Fprintf(file, "Прошло %s\n", duration)
+	fmt.Fprintf(file, "Шаги %d\n", steps)
+	fmt.Fprintf(file, "Макс количество вершин в стеке %d\n", nodeCount)
 }
