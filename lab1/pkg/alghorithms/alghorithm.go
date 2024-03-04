@@ -8,19 +8,25 @@ import (
 )
 
 // DFS - Алгоритм поиска в глубину с генерацией состояний.
-func DFS(startNode *node.Node) []node.Node {
-	chain, _ := search(consts.INFINITY, startNode)
-	return chain
+func DFS(startNode *node.Node) ([]node.Node, int, int) {
+	chain, steps, nodeCount, _ := search(consts.INFINITY, startNode)
+	return chain, steps, nodeCount
 }
 
 // IDDFS - алгоритм поиска в глубину с итеративным углублением
-func IDDFS(startNode *node.Node) []node.Node {
+func IDDFS(startNode *node.Node) ([]node.Node, int, int) {
 	depth := 1
+	steps := 0
+	nodeCount := 0
 	for depth < consts.INFINITY {
 
-		chain, ok := search(depth, startNode)
+		chain, middleSteps, middleNodeCount, ok := search(depth, startNode)
+		steps += middleSteps
+		if middleNodeCount > nodeCount {
+			nodeCount = middleNodeCount
+		}
 		if ok {
-			return chain
+			return chain, steps, nodeCount
 		}
 		state.CheckedStates = nil
 
@@ -29,17 +35,22 @@ func IDDFS(startNode *node.Node) []node.Node {
 
 	}
 
-	return nil
+	return nil, steps, nodeCount
 }
 
 // IDDFS - алгоритм поиска в глубину с итеративным углублением
 
 // search - функция поиска в глубину.
-func search(maxDepth int, startNode *node.Node) ([]node.Node, bool) {
+func search(maxDepth int, startNode *node.Node) ([]node.Node, int, int, bool) {
 	var stack []node.Node
 	//var chain []node.Node
+	nodeCount := 1
+	steps := 0
 	stack = append(stack, *startNode)
 	for len(stack) > 0 {
+		if nodeCount < len(stack) {
+			nodeCount = len(stack)
+		}
 		// Получаем текущее состояние из стека.
 		currentNode := stack[len(stack)-1]
 		// Убираем текущее состояние из стека.
@@ -48,14 +59,14 @@ func search(maxDepth int, startNode *node.Node) ([]node.Node, bool) {
 		// Если текущее состояние является конечным, возвращаем всю цепочку.
 		if currentNode.State.IsResult() {
 			fmt.Println(currentNode.Depth)
-			return currentNode.ChainSlice(), true
+			return currentNode.ChainSlice(), steps, nodeCount, true
 		}
 
 		// Генерация последовательностей.
 
 		if currentNode.Depth < maxDepth {
 			subnodes := currentNode.GenerateSubnodes()
-
+			steps++
 			stack = append(stack, subnodes...)
 			// Если состояний больше нет - значит мы дошли до листа и не нашли ответ. Убираем лист из цепи.
 			continue
@@ -63,5 +74,5 @@ func search(maxDepth int, startNode *node.Node) ([]node.Node, bool) {
 
 	}
 
-	return nil, false
+	return nil, steps, nodeCount, false
 }
