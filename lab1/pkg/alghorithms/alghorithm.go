@@ -8,6 +8,7 @@ import (
 )
 
 // DFS - Алгоритм поиска в глубину с генерацией состояний.
+
 func DFS(startNode *node.Node) ([]node.Node, int, int) {
 	chain, steps, nodeCount, _ := search(consts.INFINITY, startNode)
 	return chain, steps, nodeCount
