@@ -21,15 +21,15 @@ func main() {
 
 	startNode := node.NewNode(1, state.StartState(), node.DefaultDepthGenerator, nil)
 	start := time.Now()
-	output, steps, nodeCount := solver.Resolve(startNode, alghorithms.DFS)
-	fmt.Println("STeps:", steps)
-	fmt.Println("Max nodes:", nodeCount)
-
+	output, steps, nodeCount := solver.Resolve(startNode, true, alghorithms.DFS)
 	duration := time.Since(start)
-	for _, vertex := range output {
-		vertex.State.Print(file)
+	if output != nil {
+		for _, vertex := range output {
+			vertex.State.Print(file)
+		}
+	} else {
+		fmt.Fprintf(file, "Решений нет\n")
 	}
-
 	fmt.Fprintf(file, "Прошло %s\n", duration)
 	fmt.Fprintf(file, "Шаги %d\n", steps)
 	fmt.Fprintf(file, "Макс количество вершин в стеке %d\n", nodeCount)

@@ -1,6 +1,10 @@
 package node
 
-import "AILabs/lab1/pkg/state"
+import (
+	"AILabs/lab1/pkg/state"
+	"fmt"
+	"os"
+)
 
 type Node struct {
 	State state.State
@@ -9,6 +13,11 @@ type Node struct {
 	pathCost      int
 	costGenerator func(node *Node)
 	parent        *Node
+}
+
+func (node *Node) Print(f *os.File) {
+	fmt.Fprintf(f, "Глубина:%d, Оценочная стоимость:%d \n", node.Depth, node.pathCost)
+	node.State.Print(f)
 }
 
 func NewNode(depth int, state state.State, f pathCostGenerator, parent *Node) *Node {
