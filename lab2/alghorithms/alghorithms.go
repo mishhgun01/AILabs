@@ -6,13 +6,8 @@ import (
 	"os"
 )
 
-func AStar(startNode *node.Node, option bool) ([]node.Node, int, int) {
-	chain, steps, nodeCount, _ := search(startNode, option)
-	return chain, steps, nodeCount
-}
-
 // search - функция поиска.
-func search(startNode *node.Node, option bool) ([]node.Node, int, int, bool) {
+func Search(startNode *node.Node, option bool) ([]node.Node, int, int) {
 	var queue []node.Node
 	nodeCount := 1
 	steps := 0
@@ -30,7 +25,7 @@ func search(startNode *node.Node, option bool) ([]node.Node, int, int, bool) {
 
 		// Если текущее состояние является конечным, возвращаем всю цепочку.
 		if currentNode.State.IsResult() {
-			return currentNode.ChainSlice(), steps, nodeCount, true
+			return currentNode.ChainSlice(), steps, nodeCount
 		}
 		// Генерация последовательностей.
 		subnodes := currentNode.GenerateSubnodes()
@@ -55,5 +50,5 @@ func search(startNode *node.Node, option bool) ([]node.Node, int, int, bool) {
 		}
 	}
 
-	return nil, steps, nodeCount, false
+	return nil, steps, nodeCount
 }

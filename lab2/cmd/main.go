@@ -18,9 +18,9 @@ func main() {
 	}
 	defer file.Close()
 
-	startNode := node.NewNode(1, state.StartState(), node.AStarMinimumStepsDepthGenerator, nil)
+	startNode := node.NewNode(1, state.StartState(), node.ManhattanDistanceGenerator, nil)
 	start := time.Now()
-	output, steps, nodeCount := solver.Resolve(startNode, true, alghorithms.AStar)
+	output, steps, nodeCount := solver.Resolve(startNode, false, alghorithms.Search)
 
 	duration := time.Since(start)
 	if output != nil {
